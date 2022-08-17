@@ -1,0 +1,1 @@
+url = "https://2ch.hk/gg/res/1325068.html#1363032"
