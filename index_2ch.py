@@ -19,18 +19,6 @@ def get_url(url):
         os.makedirs(catalog)
     return req.text
 
-def get_content(url):
-    headers = {
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-        "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:96.0) Gecko/20100101 Firefox/96.0"
-    }
-    req = requests.get(url=url, headers=headers)
-
-    with open(f"2ch_{catalog}.html", "w") as file:
-        file.write(req.text)
-    if not os.path.exists(catalog):
-        os.makedirs(catalog)
-    return req.text
 
 url = str(input("ВВедите URL "))
 # print(url)
