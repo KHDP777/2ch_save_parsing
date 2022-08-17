@@ -2,7 +2,7 @@ import os
 import random
 from time import sleep
 import requests
-from bs4 import BeautifulSoup
+# from bs4 import BeautifulSoup
 from proxy_auth import proxies
 
 def get_req(url, catalog):
@@ -45,7 +45,10 @@ def put_content(soup, catalog):
     count = 0
     for item in all_hrefs:
         sleep(random.randint(1, 5))
-        file_href = main_link + item.get("href")
+        if "http" in item.get("href"):
+            file_href = item.get("href")
+        else:
+            file_href = main_link + item.get("href")
         buffer = file_href.split("/")
         file_name = buffer[-1]
         print(file_href, file_name)

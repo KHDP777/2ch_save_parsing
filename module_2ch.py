@@ -2,14 +2,15 @@ import os
 import random
 from time import sleep
 import requests
-from bs4 import BeautifulSoup
+# from bs4 import BeautifulSoup
+from proxy_auth import proxies
 
 def get_req(url, catalog):
     headers = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
         "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:96.0) Gecko/20100101 Firefox/96.0"
     }
-    req = requests.get(url=url, headers=headers)
+    req = requests.get(url=url, headers=headers, proxies=proxies)
     if not os.path.exists(catalog):
         os.makedirs(catalog)
     with open(f"{catalog}/2ch_{catalog}.html", "w") as file:
@@ -42,7 +43,10 @@ def put_content(soup, catalog):
     for item in all_hrefs:
         sleep(random.randint(1, 5))
         file_name = item.find("img").get("data-title")
-        file_href = main_link + item.get("href")
+        if "http" in item.get("href"):
+            file_href = item.get("href")
+        else:
+            file_href = main_link + item.get("href")
         print(file_href, file_name)
         req_content = requests.get(file_href)
         response = req_content.content

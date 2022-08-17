@@ -1,7 +1,3 @@
-import os
-import random
-from time import sleep
-import requests
 from bs4 import BeautifulSoup
 
 url = str(input("ВВедите URL "))
